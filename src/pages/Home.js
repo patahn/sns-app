@@ -1,13 +1,10 @@
 import React from "react";
 import { auth } from "../firebaseSetup";
+import firebase from "firebase";
 
 function Home() {
-    function signOut() {
-        auth.signOut();
-    }
-
-    function deleteAccount() {
-        auth.currentUser.delete();
+    async function signOut() {
+        await auth.signOut();
     }
 
     return <div>
@@ -15,12 +12,7 @@ function Home() {
             Main Container
         </div>
 
-        <br />
-        <br />
-
         <button className="home-button" onClick={signOut}>Log Out</button>
-        <br />
-        <button className="home-button" onClick={deleteAccount}>Delete Account</button>
     </div>
 }
 

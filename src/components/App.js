@@ -1,7 +1,6 @@
 import React from "react";
 import { auth } from "../firebaseSetup";
 import Router from "./Router";
-import "../App.css";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(auth.currentUser);

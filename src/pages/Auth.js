@@ -6,6 +6,7 @@ function Auth() {
     const [username, setUsername] = React.useState("");
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
+    const [error, setError] = React.useState("");
 
     function toggleAccount(event) {
         event.preventDefault();
@@ -30,13 +31,16 @@ function Auth() {
         let result;
         if (newUser) {
             result = await auth.createUserWithEmailAndPassword(email, password).then(result => {
-                console.log(result.user);
                 result.user.updateProfile({
                     displayName: username
                 });
+            }).catch(err => {
+                setError(err.message);
             });
         } else {
-            result = await auth.signInWithEmailAndPassword(email, password);
+            result = await auth.signInWithEmailAndPassword(email, password).catch(err => {
+                setError(err.message);
+            });
         }
     }
 
@@ -53,6 +57,7 @@ function Auth() {
                 <input type="submit" value="Create Account" />
                 <br />
                 <button onClick={toggleAccount}>Go to Login</button>
+                <h4>{error}</h4>
             </form>
         ) : (
             <form onSubmit={createUser}>
@@ -64,6 +69,7 @@ function Auth() {
                 <input type="submit" value="Login" />
                 <br />
                 <button onClick={toggleAccount}>Go to Create Account</button>
+                <h4>{error}</h4>
             </form>
         )}
     </div>
