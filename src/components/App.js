@@ -4,11 +4,13 @@ import Router from "./Router";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(auth.currentUser);
+  const [user, setUser] = React.useState(auth.currentUser);
 
   React.useEffect(() => {
     auth.onAuthStateChanged(user => {
       if (user) {
         setIsLoggedIn(true);
+        setUser(user);
       } else {
         setIsLoggedIn(false);
       }
@@ -17,7 +19,7 @@ function App() {
 
   return (
     <div className="App">
-      <Router isLoggedIn={isLoggedIn} />
+      <Router user={user} isLoggedIn={isLoggedIn} />
     </div>
   );
 }

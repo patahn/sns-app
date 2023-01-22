@@ -27,10 +27,8 @@ function Auth() {
 
     async function createUser(event) {
         event.preventDefault();
-
-        let result;
         if (newUser) {
-            result = await auth.createUserWithEmailAndPassword(email, password).then(result => {
+            await auth.createUserWithEmailAndPassword(email, password).then(result => {
                 result.user.updateProfile({
                     displayName: username
                 });
@@ -38,7 +36,7 @@ function Auth() {
                 setError(err.message);
             });
         } else {
-            result = await auth.signInWithEmailAndPassword(email, password).catch(err => {
+            await auth.signInWithEmailAndPassword(email, password).catch(err => {
                 setError(err.message);
             });
         }
